@@ -23,7 +23,6 @@ Antes de empezar, lean el [README.md](README.md): ahí están los conceptos y lo
    ```
 2. Quiten el remoto del curso, para no intentar subir cambios a él:
    ```bash
-   git remote remove origin
    ```
 3. En GitHub, creen un repositorio **vacío** (sin README, sin `.gitignore`, sin licencia) con el nombre `pronosticos-java-<su-apellido>`.
 4. Conecten su repositorio y suban el código:
