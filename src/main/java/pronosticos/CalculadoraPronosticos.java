@@ -27,12 +27,27 @@ public class CalculadoraPronosticos {
         List<Double> ultimos = serie.subList(serie.size() - ventana, serie.size());
         return sumar(ultimos) / ventana;
     }
-
+    /**
+     * Calcula el pronóstico del siguiente periodo usando suavización exponencial simple.
+     * Inicia con F2 = D1 y despues actualiza el pronóstico con la fórmula:
+     * F(t+1) = F(t) + alfa * (D(t) - F(t)).
+     * @param serie lista de demandas históricas utilizadas para calcular el pronóstico
+     * @param alfa valor entre 0 y 1 que determina cuánto se ajusta el pronóstico
+     * @return nuevo pronóstico calculado a partir de la serie histórica y el valor de alfa
+     * @throws IllegalArgumentException si alfa es menor que 0 o mayor que 1
+     */
     public double suavizacionExponencial(List<Double> serie, double alfa) {
+
+        if (alfa < 0 || alfa > 1) {
+            throw new IllegalArgumentException("Alfa debe estar entre 0 y 1");
+        }
+
         double pronostico = serie.get(0);
 
-        for (int i = 1; i < serie.size(); i++) {
-            pronostico = pronostico + alfa * (serie.get(i) - pronostico);
+        for (int posicion = 1; posicion < serie.size(); posicion++) {
+            double demandaReal = serie.get(posicion);
+
+            pronostico = pronostico + alfa * (demandaReal - pronostico);
         }
 
         return pronostico;
